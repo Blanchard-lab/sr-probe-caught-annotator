@@ -3,6 +3,8 @@ let videoInput = document.getElementById("videoInput");
 let popup = document.getElementById("popup");
 let surveyForm = document.getElementById("surveyForm");
 let reportData = [];
+let lastPauseTime = 0;
+
 videoInput.addEventListener("change", function(event) {
     let file = event.target.files[0];
     if (file) {
@@ -11,18 +13,18 @@ videoInput.addEventListener("change", function(event) {
         video.style.display = "block";
         video.currentTime = 0;
         reportData = [];
-        setTimeout(checkPause, 60000);
+        lastPauseTime = 0;
     }
 });
-function checkPause() {
-    if (!video.paused && video.currentTime > 0 && (Math.floor(video.currentTime) % 60 === 0 || video.currentTime >= video.duration - 1)) {
+
+video.addEventListener("timeupdate", function() {
+    if (!video.paused && video.currentTime > 1 && (Math.floor(video.currentTime) % 60 === 0) && Math.floor(video.currentTime) !== lastPauseTime) {
         video.pause();
         popup.style.display = "flex";
+        lastPauseTime = Math.floor(video.currentTime);
     }
-    if (!video.ended) {
-        setTimeout(checkPause, 1000);
-    }
-}
+});
+
 function submitSurvey() {
     let responses = [];
     let checkboxes = surveyForm.querySelectorAll("input[type='checkbox']");
@@ -35,6 +37,7 @@ function submitSurvey() {
     video.currentTime += 1;
     video.play();
 }
+
 function downloadReport() {
     let blob = new Blob([reportData.join("\n")], { type: "text/plain" });
     let a = document.createElement("a");
