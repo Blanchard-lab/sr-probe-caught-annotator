@@ -19,4 +19,6 @@ To run this tool, run the following in your workspace:
 
 `xdg-open http://0.0.0.0:8000/` (Linux)
 
-Do not deploy on a web server. If multiple participants are annotating, connect to the same network and use local server.
+Do not deploy on a web server. If multiple participants are annotating, connect to the same network and use local server. To find your ip, run:
+
+`ipconfig getifaddr en0` (Mac/Linux)
