@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Feedback Session</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="feedback-page">
+    <div id="video-container">
+        <video id="feedback-video" controls></video>
+        <div id="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading video...</p>
+        </div>
+        <button id="start-playback" class="button primary">Start Video</button>
+    </div>
+    
+    <div id="feedback-popup" class="modal">
+        <div class="modal-content">
+            <h2>How were you feeling?</h2>
+            <p id="probe-question">In the last <span id="probe-time">60</span> seconds during the task, how were you feeling? Select all that apply.</p>
+            
+            <div id="feedback-options"></div>
+            
+            <div class="button-container">
+                <button id="submit-feedback" class="button primary">Submit</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="floating-controls">
+        <button id="download-report" class="button secondary">Download Report</button>
+        <button id="end-session" class="button danger">End Session</button>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
+</body>
+</html>

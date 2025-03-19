@@ -1,0 +1,16 @@
+{
+  "video": "part 1.mp4",
+  "startTime": "2025-03-19T19:06:01.583Z",
+  "endTime": "2025-03-19T19:07:01.289Z",
+  "probeFrequency": 60,
+  "responses": [
+    {
+      "timestamp": "2025-03-19T19:06:58.666Z",
+      "videoTime": 60,
+      "responses": [
+        "Disappointed",
+        "Anxious"
+      ]
+    }
+  ]
+}
