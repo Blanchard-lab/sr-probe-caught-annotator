@@ -1,9 +1,9 @@
 # Overview
 
-Simple annotation tool for probe-caught experiments using a retrospective approach. Upload your video using the `Choose file` option. 
-The default setting for pop-up surveys is every 60s since start of the video (and one at the end). This can be customized in `script.js`.
+Simple annotation tool for probe-caught experiments using a retrospective approach. Upload your video to the codebase as `part 1.mp4` and host it locally. 
+The probe-caught frequency and labels can be customized in the dashboard. Click `Start` after configuring these settings.
 
-A cumulative report of the survey responses and associated timestamps is generated and can be downloaded using `Download Report`.
+A cumulative report of the survey responses and associated timestamps is generated after labeling and can be downloaded using `Download Report`.
 
 To run this tool, run the following in your workspace:
 
@@ -16,3 +16,5 @@ To run this tool, run the following in your workspace:
 `open http://0.0.0.0:8000/` (MacOS)
 
 `xdg-open http://0.0.0.0:8000/` (Linux)
+
+Do not deploy on a public server. If multiple participants are annotating, connect to the same network and use local server.
