@@ -22,3 +22,7 @@ To use this tool, run the following in your workspace:
 Do not deploy on a web server. If multiple participants are annotating, connect to the same network and use local server. To find your ip, run:
 
 `ipconfig getifaddr en0` (Mac/Linux)
+
+
+**NOTE**
+This simple HTTP server might run into "Broken Pipe" error due to connection dropping when streaming videos on multiple clients on the same local network. For a robust option, check out the `flask-nginx` branch
