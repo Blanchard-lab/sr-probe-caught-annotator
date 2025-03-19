@@ -1,6 +1,6 @@
 # Overview
 
-Simple annotation tool for probe-caught experiments using a retrospective approach. Upload your video to the codebase as `part 1.mp4` and host it locally. 
+Simple annotation tool for probe-caught experiments using a retrospective approach. Add your video to the root directory as `part 1.mp4` and host it locally. 
 The probe-caught frequency and labels can be customized in the dashboard. Click `Start` after configuring these settings.
 
 A cumulative report of the survey responses and associated timestamps is generated after labeling and can be downloaded using `Download Report`.
