@@ -1,30 +1,31 @@
 let video = document.getElementById("video");
-let videoInput = document.getElementById("videoInput");
 let popup = document.getElementById("popup");
 let surveyForm = document.getElementById("surveyForm");
 let reportData = [];
 let lastPauseTime = 0;
 
-videoInput.addEventListener("change", function(event) {
-    let file = event.target.files[0];
-    if (file) {
-        let url = URL.createObjectURL(file);
-        video.src = url;
-        video.style.display = "block";
-        video.currentTime = 0;
-        reportData = [];
-        lastPauseTime = 0;
-    }
+// Load the video from the fixed path
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the video path from localStorage (set by dashboard.js)
+    const videoPath = localStorage.getItem("currentVideo") || "video.mp4";
+    video.src = videoPath;
+    video.style.display = "block";
 });
 
 video.addEventListener("timeupdate", function() {
-    if (!video.paused && video.currentTime > 1 && (Math.floor(video.currentTime) % 60 === 0) && Math.floor(video.currentTime) !== lastPauseTime) {
+    // Get the probe frequency from localStorage (set in dashboard)
+    const probeFrequency = parseInt(localStorage.getItem("probeFrequency") || 60);
+    
+    if (!video.paused && video.currentTime > 1 && 
+        (Math.floor(video.currentTime) % probeFrequency === 0) && 
+        Math.floor(video.currentTime) !== lastPauseTime) {
         video.pause();
         popup.style.display = "flex";
         lastPauseTime = Math.floor(video.currentTime);
     }
 });
 
+// Rest of your code remains the same...
 function submitSurvey() {
     let responses = [];
     let checkboxes = surveyForm.querySelectorAll("input[type='checkbox']");
