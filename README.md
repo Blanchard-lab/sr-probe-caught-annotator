@@ -5,7 +5,7 @@ The probe-caught frequency and labels can be customized in the dashboard. Click 
 
 A cumulative report of the survey responses and associated timestamps is generated after labeling and can be downloaded using `Download Report`.
 
-To run this tool, run the following in your workspace:
+To use this tool, run the following in your workspace:
 
 `git clone https://github.com/Blanchard-lab/sr-probe-caught-annotator.git`
 
