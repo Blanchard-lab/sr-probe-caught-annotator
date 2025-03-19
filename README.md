@@ -9,6 +9,8 @@ To run this tool, run the following in your workspace:
 
 `git clone https://github.com/Blanchard-lab/sr-probe-caught-annotator.git`
 
+`mv path/to/your/task-video path/to/repo/root-directory`
+
 `python -m http.server 8000`
 
 `start http://0.0.0.0:8000/` (Windows)
