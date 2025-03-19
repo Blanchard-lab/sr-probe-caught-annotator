@@ -1,13 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Fixed video path - assumes video.mp4 exists in the same directory
     const videoPath = "part 1.mp4";
     const videoElement = document.getElementById("currentVideo");
     const videoStats = document.getElementById("video-stats");
-    
-    // Set the video source
+
     videoElement.src = videoPath;
-    
-    // Load video metadata to display stats
+
     videoElement.addEventListener("loadedmetadata", function() {
         const duration = Math.floor(videoElement.duration);
         const minutes = Math.floor(duration / 60);
@@ -18,18 +15,14 @@ document.addEventListener("DOMContentLoaded", function() {
             <p><strong>Duration:</strong> ${minutes}m ${seconds}s</p>
         `;
     });
-    
-    // Store the video path for video_feedback.html to use
+ 
     localStorage.setItem("currentVideo", videoPath);
-    
-    // Rest of your existing code for labels management...
     let labels = JSON.parse(localStorage.getItem("labels")) || [
         "Engaged", "Disengaged", "Optimistic", "Satisfied", "Confused",
         "Frustrated", "Disappointed", "Anxious", "Conflicted", "Surprised",
         "Reserved", "Confident"
     ];
-    
-    // ... [rest of your existing labels code]
+
     
     function renderLabels() {
         let labelList = document.getElementById("labelList");
@@ -75,6 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     document.getElementById("start").addEventListener("click", function() {
-        window.location.href = "video_feedback.html";
+        window.location.href = "feedback.html";
     });
 });

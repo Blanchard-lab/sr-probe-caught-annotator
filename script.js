@@ -4,16 +4,13 @@ let surveyForm = document.getElementById("surveyForm");
 let reportData = [];
 let lastPauseTime = 0;
 
-// Load the video from the fixed path
 document.addEventListener("DOMContentLoaded", function() {
-    // Get the video path from localStorage (set by dashboard.js)
-    const videoPath = localStorage.getItem("currentVideo") || "video.mp4";
+    const videoPath = localStorage.getItem("currentVideo") || "part 1.mp4";
     video.src = videoPath;
     video.style.display = "block";
 });
 
 video.addEventListener("timeupdate", function() {
-    // Get the probe frequency from localStorage (set in dashboard)
     const probeFrequency = parseInt(localStorage.getItem("probeFrequency") || 60);
     
     if (!video.paused && video.currentTime > 1 && 
@@ -25,7 +22,6 @@ video.addEventListener("timeupdate", function() {
     }
 });
 
-// Rest of your code remains the same...
 function submitSurvey() {
     let responses = [];
     let checkboxes = surveyForm.querySelectorAll("input[type='checkbox']");
