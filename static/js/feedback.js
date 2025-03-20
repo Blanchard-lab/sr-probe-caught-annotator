@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (currentVideo) {
         video.src = `/video/${currentVideo}`;
+        video.preload = 'metadata';
     } else {
         alert('No video selected. Redirecting to dashboard.');
         window.location.href = '/dashboard';
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             lastPauseTime = Math.floor(video.currentTime);
             // print out the current time for debugging
             console.log('Current time for feedback:', lastPauseTime);
-            probeTimeDisplay.textContent = lastPauseTime;
+            // probeTimeDisplay.textContent = currentTime - lastPauseTime;
             showFeedbackPopup();
         }
     });
