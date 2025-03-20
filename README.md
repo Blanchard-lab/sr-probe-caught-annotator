@@ -57,7 +57,7 @@ and look for the `inet` address under your network interface (usually `eth0` or 
 If you want to reduce the video size, run
 
 ```
-ffmpeg -i input.mp4 -vf "scale=1280:720" -preset fast output.mp4
+ffmpeg -i static/videos/input.mp4 -vf "scale=1280:720" -preset fast static/videos/output.mp4
 ```
 
 ### Production Deployment with Nginx (optional)
