@@ -7,12 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitFeedbackBtn = document.getElementById('submit-feedback');
     const downloadReportBtn = document.getElementById('download-report');
     const endSessionBtn = document.getElementById('end-session');
+    const surveyBtn = document.getElementById('survey-button');
     const probeTimeDisplay = document.getElementById('probe-time');
     
     let videoLoaded = false;
     let lastPauseTime = 0;
+    let lastPromptTime = 0;
     let reportData = [];
     let sessionData = {
+        groupID: localStorage.getItem('group_id') || '',
+        participantID: localStorage.getItem('participant_id') || '',
         video: '',
         startTime: new Date().toISOString(),
         endTime: '',
@@ -31,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (currentVideo) {
         video.src = `/video/${currentVideo}`;
+        video.preload = 'metadata';
     } else {
         alert('No video selected. Redirecting to dashboard.');
         window.location.href = '/dashboard';
@@ -40,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
         videoLoaded = true;
         loadingIndicator.style.display = 'none';
         startPlaybackBtn.style.display = 'block';
-        
         renderFeedbackOptions();
     });
     
@@ -52,16 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
     video.addEventListener('timeupdate', function() {
         if (!videoLoaded || video.paused) return;
         
-        if (video.currentTime > 1 && 
-            Math.floor(video.currentTime) % probeFrequency === 0 && 
-            Math.floor(video.currentTime) !== lastPauseTime) {
-            
-            lastPauseTime = Math.floor(video.currentTime);
-            // print out the current time for debugging
-            console.log('Current time for feedback:', lastPauseTime);
-            probeTimeDisplay.textContent = lastPauseTime;
+        const currentTime = Math.floor(video.currentTime);
+        probeTimeDisplay.textContent = currentTime - lastPromptTime;
+        
+        if (currentTime > 1 && (currentTime - lastPromptTime) % probeFrequency === 0 && currentTime !== lastPauseTime) {
+            lastPauseTime = currentTime;
+            lastPromptTime = currentTime;
             showFeedbackPopup();
         }
+    });
+    
+    video.addEventListener('ended', function() {
+        showFeedbackPopup();
     });
     
     startPlaybackBtn.addEventListener('click', function() {
@@ -72,7 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.display = 'block';
         });
     });
-
+    
+    surveyBtn.addEventListener('click', function() {
+        
+        showFeedbackPopup();
+    });
+    
     function renderFeedbackOptions() {
         feedbackOptions.innerHTML = '';
         
@@ -94,12 +105,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const checkbox = this.querySelector('input[type="checkbox"]');
                     checkbox.checked = !checkbox.checked;
                 }
-            
                 this.classList.toggle('selected', this.querySelector('input[type="checkbox"]').checked);
             });
         });
     }
-
+    
     function showFeedbackPopup() {
         video.pause();
         
@@ -119,17 +129,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const responseData = {
             timestamp: new Date().toISOString(),
-            videoTime: lastPauseTime,
+            videoTime: Math.floor(video.currentTime),
             responses: selectedOptions
         };
         
         sessionData.responses.push(responseData);
-        reportData.push(`Time: ${lastPauseTime}s, Responses: ${selectedOptions.join(', ')}`);
+        reportData.push(`Time: ${Math.floor(video.currentTime)}s, Responses: ${selectedOptions.join(', ')}`);
         
         feedbackPopup.style.display = 'none';
         
         try {
-            video.currentTime = lastPauseTime + 1;
+            video.currentTime = video.currentTime + 1;
+            lastPauseTime = Math.floor(video.currentTime);
+            lastPromptTime = lastPauseTime;
             setTimeout(() => {
                 video.play().catch(err => console.error('Error resuming playback:', err));
             }, 200);
@@ -145,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitFeedbackBtn.click();
         }
     });
-
+    
     downloadReportBtn.addEventListener('click', function() {
         if (sessionData.responses.length === 0) {
             alert('No feedback data collected yet.');
@@ -203,4 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         window.location.href = '/dashboard';
     });
+
+
 });

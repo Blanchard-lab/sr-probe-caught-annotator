@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const groupID = document.getElementById('group-id');
+    const participantID = document.getElementById('participant-id');
     const videoSelect = document.getElementById('video-select');
     const previewPlayer = document.getElementById('preview-player');
     const labelList = document.getElementById('label-list');
@@ -121,10 +123,19 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Please select a video');
             return;
         }
+
+        if (!groupID || !participantID) {
+            alert('Please enter both Group ID and Participant ID');
+            return;
+        }
         
         localStorage.setItem('current_video', selectedVideo);
         localStorage.setItem('probe_frequency', probeFrequency.value);
+        localStorage.setItem('group_id', groupID.value);
+        localStorage.setItem('participant_id', participantID.value);
         
+        console.log('Group ID:', groupID);
+        console.log('Participant ID:', participantID);
         window.location.href = '/feedback';
     });
     
