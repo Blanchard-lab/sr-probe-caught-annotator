@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastPromptTime = 0;
     let reportData = [];
     let sessionData = {
+        groupID: localStorage.getItem('group_id') || '',
+        participantID: localStorage.getItem('participant_id') || '',
         video: '',
         startTime: new Date().toISOString(),
         endTime: '',
